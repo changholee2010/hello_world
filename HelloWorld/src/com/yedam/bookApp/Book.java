@@ -9,6 +9,8 @@ public class Book {
 	private String author;
 	private String company;
 	private int price;
+	private int orderNo; // 1,2,3
+	
 	// 생성자.
 	public Book() {}
 	public Book(String title, String author, String company, int price) {
@@ -17,9 +19,19 @@ public class Book {
 		this.company = company;
 		this.price = price;
 	}
+	public Book(String title, String author, String company, int price, int orderNo) {
+		this.title = title;
+		this.author = author;
+		this.company = company;
+		this.price = price;
+		this.orderNo = orderNo;
+	}
 	// 메소드.
 	public String showList() {
 		return title + " " + author + " " + price;
+	}
+	public String showListWithNo() {
+		return orderNo + " " + title + " " + author + " " + price;
 	}
 	public String showBookInfo() {
 		String msg = "제목은 " + title + "/ 저자는 " + author +"\n출판사는 " + company + "/ 가격은 " + price;
@@ -51,5 +63,10 @@ public class Book {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+	public int getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}	
 }
