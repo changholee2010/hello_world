@@ -39,22 +39,25 @@ public class ArrayExe3Calendar {
 				= { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 		// 요일출력.
 		for (String day : days) {
-			System.out.print(" " + day);
+			System.out.print(" " + day + " ");
 		}
 		System.out.println(); // 줄바꿈.
-		int month = 4;
+		int month = 3;
 		int space = getFirstDay(month); // 1일의 위치값.
 		int lastDate = getLastDate(month); // 마지막날.
 		// 공백갯수만큼 빈칸.
 		for (int i = 0; i < space; i++) {
-			System.out.print("    ");
+			System.out.print("     ");
 		}
 		// 날짜출력. "1" -> 1 :Integer.parseInt()
 		for (int d = 1; d <= lastDate; d++) {
-			if (String.valueOf(d).length() == 1) {
-				System.out.print("   " + d);
+			// 3월달 21일은 "test"
+			if (month == 3 && d == 21) {
+				System.out.print("test ");
+			} else if (String.valueOf(d).length() == 1) {
+				System.out.print("   " + d + " ");
 			} else if (String.valueOf(d).length() == 2) {
-				System.out.print("  " + d);
+				System.out.print("  " + d + " ");
 			}
 			// 줄바꿈.
 			if ((space + d) % 7 == 0) {
