@@ -1,6 +1,7 @@
 package com.yedam.classes;
 
 public class MethodExe2 {
+
 	private Product[] store; // 필드.
 
 	// 생성자.

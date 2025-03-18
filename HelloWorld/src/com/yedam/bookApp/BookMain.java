@@ -3,17 +3,45 @@ package com.yedam.bookApp;
 import java.util.Scanner;
 
 /*
- * 등록, 수정, 삭제, 목록 
+ * 등록, 수정, 삭제, 목록
  */
 
 public class BookMain {
 
+	// 2. 정적필드. 할당.
+	private static BookMain instance = new BookMain();
+
+	// 1. 생성자 private 선언.
+	private BookMain() {
+	}
+
+	// 3. getInstance() 제공.
+	public static BookMain getInstance() {
+		return instance;
+	}
+
 	// 저장공간.
-	static Book[] bookStore = new Book[100];
-	static Scanner scn = new Scanner(System.in);
+	Book[] bookStore = new Book[100];
+	User[] members = { new User("user01", "홍길동", "1111")//
+			, new User("user02", "김민규", "2222")//
+			, new User("user03", "김민식", "3333") };
+
+	// 스캐너 객체선언.
+	Scanner scn = new Scanner(System.in);
+
+	// 아이디, 비밀번호 입력.
+	private boolean login(String id, String pw) {
+		for (int i = 0; i < members.length; i++) {
+			if (members[i].getUserId().equals(id) //
+					&& members[i].getPassword().equals(pw)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	// 순번생성.
-	public static int getSequnceNo() {
+	private int getSequnceNo() {
 		int max = 0;
 		for (int i = 0; i < bookStore.length; i++) {
 			if (bookStore[i] != null //
@@ -26,7 +54,7 @@ public class BookMain {
 
 	// 등록.
 	// 1. 이미 존재하는 제목은 입력불가.
-	public static void add() {
+	private void add() {
 
 		System.out.print("제목입력>> ");
 		String title = scn.nextLine();
@@ -59,7 +87,7 @@ public class BookMain {
 	} // end of add().
 
 	// 수정.
-	public static void edit() {
+	private void edit() {
 		// 책제목을 입력하지 않으면 메소드 종료하는 방식.
 		System.out.print("제목입력>> ");
 		String title = scn.nextLine();
@@ -98,7 +126,7 @@ public class BookMain {
 		}
 	} // end of edit().
 
-	public static void delete() {
+	private void delete() {
 		// 책제목을 입력하지 않으면 반드시 값을 입력받는 방식.
 		String title = "";
 		while (true) {
@@ -125,7 +153,7 @@ public class BookMain {
 		}
 	} // end of delete().
 
-	public static void list() {
+	private void list() {
 		// 순번정렬.
 		// 순번1 > 순번2, 제외:순번2(null), 순번1(null)
 		Book temp = null;
@@ -154,7 +182,7 @@ public class BookMain {
 	} // end of list().
 
 	// list와 listCompany에서 활용할 공통메소드.
-	public static Book[] searchList(String keyword) {
+	private Book[] searchList(String keyword) {
 		Book[] list = new Book[100];
 		int idx = 0;
 		for (int i = 0; i < bookStore.length; i++) {
@@ -167,7 +195,7 @@ public class BookMain {
 		return list;
 	} // end of searchList.
 
-	public static void listCompany() {
+	private void listCompany() {
 		System.out.print("조회할 출판사 정보>> ");
 		String company = scn.nextLine();
 
@@ -181,7 +209,7 @@ public class BookMain {
 		}
 	} // end of listCompany().
 
-	public static void bookInfo() {
+	private void bookInfo() {
 		// 반드시 값을 입력받도록.
 		String title = "";
 		while (true) {
@@ -203,7 +231,7 @@ public class BookMain {
 	} // end of bookInfo().
 
 	// 도서명으로 조회하는 기능.
-	public static Book searchBook(String title) {
+	private Book searchBook(String title) {
 		for (int i = 0; i < bookStore.length; i++) {
 			if (bookStore[i] != null //
 					&& bookStore[i].getTitle().equals(title)) {
@@ -213,13 +241,38 @@ public class BookMain {
 		return null; // 조회결과가 없을 경우에는 null을 반환.
 	} // end of searchBook(String title).
 
-	public static void main(String[] args) {
+	public void main(String[] args) {
+		// id, password 확인.
+		while (true) {
+			System.out.println("id입력>> ");
+			String id = scn.nextLine();
+			System.out.println("password입력>> ");
+			String pw = scn.nextLine();
+
+			if (login(id, pw)) {
+				System.out.println("정상");
+				break;
+			}
+			// id, password 비정상.
+			System.out.println("id와 password를 확인하세요.");
+		}
+
 		init();
 		boolean run = true;
 		while (run) {
 			System.out.println("1.도서등록 2.수정 3.삭제 4.목록 5.상세조회 6.목록조회(출판사) 9.종료");
 			System.out.print("선택>> ");
-			int menu = Integer.parseInt(scn.nextLine());
+			// 예외처리.
+			int menu = 9;
+			while (true) {
+				try {
+					menu = Integer.parseInt(scn.nextLine());
+					break;
+				} catch (NumberFormatException e) {
+					System.out.println("정수값을 입력하세요.");
+				}
+			}
+
 			switch (menu) {
 			case 1: // 등록.
 				add();
@@ -250,12 +303,9 @@ public class BookMain {
 		System.out.println("end of prog.");
 	} // end of main().
 
-	public static void init() {
+	private void init() {
 		bookStore[0] = new Book("이것이자바다", "신용권", "한빛출", 20000, 1);
 		bookStore[1] = new Book("스크립트기초", "박기초", "우리출", 26000, 2);
 		bookStore[2] = new Book("HTML,CSS", "김하늘", "가람출", 25000, 3);
-		bookStore[3] = new Book("이것이자바다2", "신용권", "한빛출", 20000, 1);
-		bookStore[4] = new Book("스크립트기초2", "박기초", "우리출", 26000, 2);
-		bookStore[5] = new Book("HTML,CSS2", "김하늘", "가람출", 25000, 3);
 	}
 }

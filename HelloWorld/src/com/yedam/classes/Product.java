@@ -4,6 +4,7 @@ package com.yedam.classes;
  * 상품코드, 상품명, 가격
  */
 public class Product {
+
 	private String productCode;
 	private String productName;
 	private int price;

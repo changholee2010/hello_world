@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class MethodExe3 {
 
 	// 구구단출력.
-	String gugudan(int num, int toNum) {
+	static String gugudan(int num, int toNum) {
 		// 2 * 1 = 2
 		// 2 * 2 = 4\n
 		// ...
@@ -22,7 +22,7 @@ public class MethodExe3 {
 	} // end of gugudan.
 
 	// 별출력.
-	void printStar(int cnt, String str) {
+	static void printStar(int cnt, String str) {
 		for (int j = 1; j <= cnt; j++) {
 			for (int i = 1; i <= cnt; i++) {
 				if (i <= j) {
@@ -34,7 +34,7 @@ public class MethodExe3 {
 	}
 
 	// 카드번호보여주기. 중복을 제거.
-	void printCard() {
+	static void printCard() {
 		// 배열선언.
 		int[] intAry = new int[16];
 		// 1 ~ 16까지의 임의수 할당.
