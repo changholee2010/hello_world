@@ -10,6 +10,7 @@ public class Book {
 	private String company;
 	private int price;
 	private int orderNo; // 1,2,3
+	private String bookCode;
 	
 	// 생성자.
 	public Book() {}
@@ -29,7 +30,7 @@ public class Book {
 	}
 	// 메소드.
 	public String showList() {
-		return title + " " + author + " " + price;
+		return bookCode + " " + title + " " + author + " " + price;
 	}
 	public String showListWithNo() {
 		return orderNo + " " + title + " " + author + " " + price;
@@ -69,5 +70,11 @@ public class Book {
 	}
 	public void setOrderNo(int orderNo) {
 		this.orderNo = orderNo;
-	}	
+	}
+	public String getBookCode() {
+		return bookCode;
+	}
+	public void setBookCode(String bookCode) {
+		this.bookCode = bookCode;
+	}
 }
