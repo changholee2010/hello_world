@@ -21,7 +21,6 @@ public class MethodMain {
 		// 입력메세지 정의 구현.
 		boolean run = true;
 		while (run) {
-
 			System.out.println("1.목록 2.추가 3.수정 4.삭제 9.종료");
 			System.out.print("선택>> ");
 			int menu = Integer.parseInt(scn.nextLine());
@@ -88,12 +87,13 @@ public class MethodMain {
 			case 9:
 				System.out.println("프로그램을 종료합니다.");
 				run = false;
+				m2.save(); // 파일저장.
 			default:
 				System.out.println("메뉴를 선택하세요.");
 			}
 		}
 
-	}
+	} // end of officeApp().
 
 	void method4() {
 //		MethodExe4 m4 = new MethodExe4();
