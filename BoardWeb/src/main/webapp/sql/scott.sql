@@ -1,7 +1,7 @@
 select *
 from tab;
 
---½ÇÇàÆäÀÌÁö, ¾ÆÀÌÇÇ, ·Î±×½Ã°£
+--ì‹¤í–‰í˜ì´ì§€, ì•„ì´í”¼, ë¡œê·¸ì‹œê°„
 create sequence log_seq;
 drop table tbl_log purge;
 create table tbl_log (
@@ -19,7 +19,7 @@ from tbl_member;
 update tbl_member
 set responsibility = 'User';
 insert into tbl_member
-values('admin', '9999', '°ü¸®ÀÚ',  'Admin');
+values('admin', '9999', 'ê´€ë¦¬ì',  'Admin');
 
 update tbl_member
 set images='lch.jpg'
@@ -28,22 +28,22 @@ where member_id='user10';
 alter table tbl_member add responsibility varchar2(30);
 alter table tbl_member add images varchar2(50);
 
---°Ô½ÃÆÇ(±Û¹øÈ£, Á¦¸ñ, ³»¿ë, ÀÛ¼ºÀÚ, ÀÛ¼ºÀÏ½Ã)
+--ê²Œì‹œíŒ(ê¸€ë²ˆí˜¸, ì œëª©, ë‚´ìš©, ì‘ì„±ì, ì‘ì„±ì¼ì‹œ)
 create table tbl_board (
- board_no number primary key --±Û¹øÈ£(PK)
- ,title varchar2(300) not null --±ÛÁ¦¸ñ(not null)
- ,content varchar2(1000) not null --³»¿ë(not null)
- ,writer varchar2(20) not null --ÀÛ¼ºÀÚ(not null)
- ,write_date date default sysdate --ÀÛ¼ºÀÏ½Ã
+ board_no number primary key --ê¸€ë²ˆí˜¸(PK)
+ ,title varchar2(300) not null --ê¸€ì œëª©(not null)
+ ,content varchar2(1000) not null --ë‚´ìš©(not null)
+ ,writer varchar2(20) not null --ì‘ì„±ì(not null)
+ ,write_date date default sysdate --ì‘ì„±ì¼ì‹œ
 );
 create sequence board_seq;
 
 insert into tbl_board(board_no, title, content, writer)
-values(board_seq.nextval, '±Ûµî·Ï¿¬½À', 'Ã¹¹øÂ° ±Ûµî·ÏÀÔ´Ï´Ù', 'user01');
+values(board_seq.nextval, 'ê¸€ë“±ë¡ì—°ìŠµ', 'ì²«ë²ˆì§¸ ê¸€ë“±ë¡ì…ë‹ˆë‹¤', 'user01');
 insert into tbl_board(board_no, title, content, writer)
-values(board_seq.nextval, '¿À´ÃÀº±İ¿äÀÏ', 'Áñ°Å¿î³¯ÀÔ´Ï´Ù', 'user02');
+values(board_seq.nextval, 'ì˜¤ëŠ˜ì€ê¸ˆìš”ì¼', 'ì¦ê±°ìš´ë‚ ì…ë‹ˆë‹¤', 'user02');
 insert into tbl_board(board_no, title, content, writer)
-values(board_seq.nextval, '¼­ºí¸´°øºÎ', 'ÇÏ´Â ³¯ÀÌ³×¿ä..', 'user03');
+values(board_seq.nextval, 'ì„œë¸”ë¦¿ê³µë¶€', 'í•˜ëŠ” ë‚ ì´ë„¤ìš”..', 'user03');
 
 insert into tbl_board
 select board_seq.nextval, title, content, writer, write_date
@@ -55,7 +55,7 @@ select b.*
 from   (select rownum rn, a.*
         from (select *
               from tbl_board
-              where writer like '%'||'¿À´ÃÀº'||'%'
+              where writer like '%'||'ì˜¤ëŠ˜ì€'||'%'
               order by board_no) a) b
 where b.rn > (:page - 1) * 5
 and   b.rn <= (:page * 5);
@@ -70,7 +70,7 @@ from emp
 order by empno desc;
 
 insert into emp (empno, ename, job, mgr, hiredate, sal)
-values (9998, 'È«±æµ¿', 'CLERK', 7788, '2020-01-01', 1000);
+values (9998, 'í™ê¸¸ë™', 'CLERK', 7788, '2020-01-01', 1000);
 
 update emp
 set    sal = 2000
@@ -82,31 +82,31 @@ where empno = 9999;
 
 commit;
 
--- table »ı¼º.
--- µµ¼­ÄÚµå, µµ¼­¸í, ÀúÀÚ, ÃâÆÇ»ç, µµ¼­°¡°İ
+-- table ìƒì„±.
+-- ë„ì„œì½”ë“œ, ë„ì„œëª…, ì €ì, ì¶œíŒì‚¬, ë„ì„œê°€ê²©
 create table tbl_book (
- book_code varchar2(5) primary key, --µµ¼­ÄÚµå.
- book_title varchar2(50) not null, --µµ¼­¸í.
- author varchar2(30) not null, --ÀúÀÚ.
- company varchar2(30) not null, --ÃâÆÇ»ç.
+ book_code varchar2(5) primary key, --ë„ì„œì½”ë“œ.
+ book_title varchar2(50) not null, --ë„ì„œëª….
+ author varchar2(30) not null, --ì €ì.
+ company varchar2(30) not null, --ì¶œíŒì‚¬.
  price number default 1000
 );
 create sequence book_seq;
 select book_seq.nextval from dual;
 
 insert into tbl_book (book_code, book_title, author, company, price)
-values(book_seq.nextval, 'ÀÌ°ÍÀÌÀÚ¹Ù´Ù', '½Å¿ë±Ç', 'ÇÑºûÃâÆÇ»ç', 20000);
+values(book_seq.nextval, 'ì´ê²ƒì´ìë°”ë‹¤', 'ì‹ ìš©ê¶Œ', 'í•œë¹›ì¶œíŒì‚¬', 20000);
 insert into tbl_book (book_code, book_title, author, company, price)
-values(book_seq.nextval, 'È¥°øÀÚ', '½Å¿ë±Ç', 'ÇÑºûÃâÆÇ»ç', 22000);
+values(book_seq.nextval, 'í˜¼ê³µì', 'ì‹ ìš©ê¶Œ', 'í•œë¹›ì¶œíŒì‚¬', 22000);
 insert into tbl_book (book_code, book_title, author, company, price)
-values(book_seq.nextval, 'À¥±âÃÊ', '±è±âÃÊ', '±âÃÊÃâÆÇ»ç', 23000);
+values(book_seq.nextval, 'ì›¹ê¸°ì´ˆ', 'ê¹€ê¸°ì´ˆ', 'ê¸°ì´ˆì¶œíŒì‚¬', 23000);
 
 select *
 from tbl_book
 where company = nvl('', company)
 order by book_code;
 
--- µ¥ÀÌÅÍº£ÀÌ½º ÇÁ·Î±×·¡¹Ö.
+-- ë°ì´í„°ë² ì´ìŠ¤ í”„ë¡œê·¸ë˜ë°.
 update tbl_book
 set    book_title = nvl(?, book_title)
       ,price      = ?
@@ -115,16 +115,16 @@ set    book_title = nvl(?, book_title)
 where book_code = ?;
 
 create table tbl_member (
- user_id varchar2(10) primary key, --»ç¿ëÀÚ ID
- password varchar2(30) not null, --ºñ¹Ğ¹øÈ£
+ user_id varchar2(10) primary key, --ì‚¬ìš©ì ID
+ password varchar2(30) not null, --ë¹„ë°€ë²ˆí˜¸
  user_name varchar2(50) not null
 );
 insert into tbl_member 
-values ('user01', '1111', 'È«±æµ¿');
+values ('user01', '1111', 'í™ê¸¸ë™');
 insert into tbl_member 
-values ('user02', '2222', '±è±æµ¿');
+values ('user02', '2222', 'ê¹€ê¸¸ë™');
 insert into tbl_member 
-values ('user03', '3333', '¹Ú±æµ¿');
+values ('user03', '3333', 'ë°•ê¸¸ë™');
 
 select *
 from tbl_member;

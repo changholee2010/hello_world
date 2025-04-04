@@ -18,9 +18,12 @@ public class LogFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+
+		String host = request.getRemoteAddr() + " - " + request.getRemoteHost() + " - " + request.getRemotePort();
+
 		LogVO info = new LogVO();
 		info.setExecTime(new Date());
-		info.setExecIp("");
+		info.setExecIp(host);
 		info.setExecPage("");
 
 		MemberService svc = new MemberServiceImpl();
