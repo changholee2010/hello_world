@@ -5,6 +5,15 @@
 	id="WebApp_ID" version="4.0">
 	<display-name>BoardWeb</display-name>
 
+	<filter>
+		<filter-name>log</filter-name>
+		<filter-class>com.yedam.common.LogFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>log</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
 	<listener>
 		<listener-class>org.apache.tiles.extras.complete.CompleteAutoloadTilesListener</listener-class>
 	</listener>

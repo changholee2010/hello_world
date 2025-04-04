@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.yedam.common.DataSource;
 import com.yedam.mapper.MemberMapper;
+import com.yedam.vo.LogVO;
 import com.yedam.vo.MemberVO;
 
 // 업무(service 구현객체)
@@ -30,6 +31,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean changePasswd(MemberVO member) {
 		return false;
+	}
+
+	@Override
+	public void logWrite(LogVO info) {
+		mapper.insertLog(info);
 	}
 
 }

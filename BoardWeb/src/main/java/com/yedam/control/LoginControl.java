@@ -23,7 +23,7 @@ public class LoginControl implements Control {
 		// 서비스객체 처리.
 		MemberService svc = new MemberServiceImpl();
 		MemberVO mvo = svc.login(id, pw);
-
+		System.out.println(req.getRemoteHost());
 		if (mvo == null) {
 			req.setAttribute("msg", "아이디와 비밀번호를 확인하세요.");
 			req.getRequestDispatcher("WEB-INF/views/loginForm.jsp")//
@@ -38,7 +38,7 @@ public class LoginControl implements Control {
 
 			if (mvo.getResponsibility().equals("User")) {
 //				resp.sendRedirect("boardList.do");
-				req.getRequestDispatcher("common/main.tiles").forward(req, resp);
+				req.getRequestDispatcher("etc/main.tiles").forward(req, resp);
 			} else if (mvo.getResponsibility().equals("Admin")) {
 				req.getRequestDispatcher("manager/main.tiles").forward(req, resp);
 			}

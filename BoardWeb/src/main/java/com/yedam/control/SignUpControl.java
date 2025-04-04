@@ -20,7 +20,7 @@ public class SignUpControl implements Control {
 
 		if (req.getMethod().equals("GET")) {
 			// 1.회원가입화면. WEB-INF/views/signForm.jsp
-			req.getRequestDispatcher("common/signForm.tiles").forward(req, resp);
+			req.getRequestDispatcher("member/signForm.tiles").forward(req, resp);
 		} else {
 			// 2.회원가입처리. (파일업로드:images, db등록)
 			// 1)요청정보 2)경로 3)최대크기 4)인코딩 5)리네임정책

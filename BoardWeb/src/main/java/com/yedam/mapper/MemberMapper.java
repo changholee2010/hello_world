@@ -2,6 +2,7 @@ package com.yedam.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.yedam.vo.LogVO;
 import com.yedam.vo.MemberVO;
 
 public interface MemberMapper {
@@ -10,4 +11,6 @@ public interface MemberMapper {
 	int insertMember(MemberVO member); // 입력.
 	MemberVO selectMemberId(String id);
 	int updatePasswd(MemberVO member);
+	// 로그등록.
+	int insertLog(LogVO info);
 }

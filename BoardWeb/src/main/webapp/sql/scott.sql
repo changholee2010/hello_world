@@ -1,6 +1,18 @@
 select *
 from tab;
 
+--실행페이지, 아이피, 로그시간
+create sequence log_seq;
+drop table tbl_log purge;
+create table tbl_log (
+ log_sec number primary key,
+ exec_page varchar2(50),
+ exec_ip varchar2(20),
+ exec_time date default sysdate);
+
+insert into tbl_log
+values(log_seq.nextval, '/board.do', '192.168.0.40', sysdate);
+
 select *
 from tbl_member;
 

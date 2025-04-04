@@ -1,5 +1,6 @@
 package com.yedam.service;
 
+import com.yedam.vo.LogVO;
 import com.yedam.vo.MemberVO;
 
 // 업무프로세스(service)
@@ -9,4 +10,5 @@ public interface MemberService {
 	boolean addMember(MemberVO member); //회원등록.
 	MemberVO getMember(String id); //회원아이디로 조회.
 	boolean changePasswd(MemberVO member); //비번변경.
+	void logWrite(LogVO info);
 }

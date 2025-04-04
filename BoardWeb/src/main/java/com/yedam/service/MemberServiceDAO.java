@@ -1,5 +1,6 @@
 package com.yedam.service;
 
+import com.yedam.vo.LogVO;
 import com.yedam.vo.MemberVO;
 
 // MemberService(인터페이스) - 규칙.
@@ -29,6 +30,12 @@ public class MemberServiceDAO implements MemberService {
 	public boolean changePasswd(MemberVO member) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void logWrite(LogVO info) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

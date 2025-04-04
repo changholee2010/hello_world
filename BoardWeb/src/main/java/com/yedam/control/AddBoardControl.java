@@ -22,14 +22,15 @@ public class AddBoardControl implements Control {
 
 		if (req.getMethod().equals("GET")) {
 			// 요청재지정. // url에 직접 입력, 링크 => get방식요청.
-			req.getRequestDispatcher("common/addForm.tiles")//
+			req.getRequestDispatcher("board/addForm.tiles")//
 					.forward(req, resp);
 
 		} else if (req.getMethod().equals("POST")) {
+
 			// 등록.
 			String title = req.getParameter("title");
 			String writer = req.getParameter("writer");
-			String content = req.getParameter("content");
+			String content = req.getParameter("content") + "\n" + req.getRemoteHost();
 
 			BoardVO board = new BoardVO();
 			board.setTitle(title);

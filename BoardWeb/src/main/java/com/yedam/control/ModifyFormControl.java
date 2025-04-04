@@ -36,11 +36,11 @@ public class ModifyFormControl implements Control {
 
 		if (logId != null && logId.equals(board.getWriter())) {
 			// board.jsp 전달.
-			req.getRequestDispatcher("/WEB-INF/views/modifyBoard.jsp")//
+			req.getRequestDispatcher("board/modifyBoard.tiles")//
 					.forward(req, resp);
 		} else {
 			req.setAttribute("msg", "권한이 없습니다");
-			req.getRequestDispatcher("/WEB-INF/views/board.jsp")//
+			req.getRequestDispatcher("board/board.tiles")//
 					.forward(req, resp);
 		}
 
