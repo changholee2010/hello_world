@@ -1,20 +1,58 @@
 select *
 from tab;
 
+create table tbl_reply (
+  reply_no number,
+  reply    varchar2(300) not null,
+  replyer  varchar2(30) not null,
+  reply_date date default sysdate,
+  board_no number );
+
+alter table tbl_reply add constraint reply_pk primary key(reply_no);
+
+select *
+from tbl_board
+order by 1 desc;
+
+
+insert into tbl_reply (reply_no, reply, replyer, board_no)
+values(reply_seq.nextval, '152번글에 댓글', 'user01', 152);
+
+insert into tbl_reply (reply_no, reply, replyer, board_no)
+values(reply_seq.nextval, '152번글에 댓글 두번째', 'user02', 152);
+
+insert into tbl_reply (reply_no, reply, replyer, board_no)
+values(reply_seq.nextval, '152번글에 댓글 세번째', 'user03', 152);
+
+
+insert into tbl_reply (reply_no, reply, replyer, board_no)
+values(reply_seq.nextval, '152번글에 댓글 세번째', 'user03', 152);
+insert into tbl_reply (reply_no, reply, replyer, board_no)
+values(reply_seq.nextval, '152번글에 댓글 세번째', 'user03', 152);
+insert into tbl_reply (reply_no, reply, replyer, board_no)
+values(reply_seq.nextval, '152번글에 댓글 세번째', 'user03', 152);
+
+select *
+from tbl_reply
+where board_no = 152;
+
+
+
 --실행페이지, 아이피, 로그시간
 create sequence log_seq;
 drop table tbl_log purge;
 create table tbl_log (
  log_sec number primary key,
  exec_page varchar2(50),
- exec_ip varchar2(20),
+ exec_ip varchar2(50),
  exec_time date default sysdate);
 
 insert into tbl_log
 values(log_seq.nextval, '/board.do', '192.168.0.40', sysdate);
 
-select *
-from tbl_member;
+select log_sec, exec_page, exec_ip, to_char(exec_time, 'rrrr-mm-dd hh24:mi:ss') time_d
+from tbl_log
+order by 1 desc;
 
 update tbl_member
 set responsibility = 'User';

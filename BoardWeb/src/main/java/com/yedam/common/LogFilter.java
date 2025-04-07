@@ -8,6 +8,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import com.yedam.service.MemberService;
 import com.yedam.service.MemberServiceImpl;
@@ -20,11 +21,15 @@ public class LogFilter implements Filter {
 			throws IOException, ServletException {
 
 		String host = request.getRemoteAddr() + " - " + request.getRemoteHost() + " - " + request.getRemotePort();
+		HttpServletRequest req = (HttpServletRequest) request;
 
 		LogVO info = new LogVO();
 		info.setExecTime(new Date());
 		info.setExecIp(host);
-		info.setExecPage("");
+		String uri = req.getRequestURI();
+		String context = req.getContextPath();
+		String page = uri.substring(context.length());
+		info.setExecPage(page);
 
 		MemberService svc = new MemberServiceImpl();
 		svc.logWrite(info);

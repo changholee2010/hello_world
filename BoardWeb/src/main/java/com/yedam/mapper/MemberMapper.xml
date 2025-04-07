@@ -33,4 +33,10 @@
     where member_id = #{memberId}
   </update>
 
+  <!-- 로그등록. -->
+  <insert id="insertLog" parameterType="com.yedam.vo.LogVO">
+    insert into tbl_log
+    values(log_seq.nextval, #{execPage}, #{execIp}, sysdate)
+  </insert>
+
 </mapper>
