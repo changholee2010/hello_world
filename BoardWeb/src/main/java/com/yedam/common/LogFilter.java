@@ -31,8 +31,11 @@ public class LogFilter implements Filter {
 		String page = uri.substring(context.length());
 		info.setExecPage(page);
 
+		chain.doFilter(req, response);
+
 		MemberService svc = new MemberServiceImpl();
 		svc.logWrite(info);
+
 	}
 
 }
