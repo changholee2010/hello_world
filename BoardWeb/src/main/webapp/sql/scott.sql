@@ -1,6 +1,49 @@
 select *
 from tab;
 
+create table tbl_logging (
+  log_id number primary key,
+  req_path varchar2(50) not null,
+  req_host varchar2(50) ,
+  req_date date default sysdate
+);
+create sequence loggin_seq;
+
+insert into tbl_logging(log_id, req_path, req_host)
+values(loggin_seq.nextval, '/boardList.do', '192.168.0.33');
+
+select /*+ INDEX_DESC (l SYS_C007054) */ *
+from tbl_logging l;
+
+select req_host, count(1)
+from tbl_logging
+group by req_host
+order by 2 desc;
+
+delete from tbl_logging
+where req_host = '0:0:0:0:0:0:0:1';
+
+select member_name, b.writer, count(1) as cnt
+from tbl_board b
+join tbl_member m
+on b.writer = m.member_id
+group by member_name, b.writer;
+
+select *
+from tbl_board
+where writer = 'user01'
+order by 1;
+
+update tbl_board
+set writer = 'user07'
+where writer = 'user01'
+and board_no < 40;
+
+select *
+from tbl_member;
+
+
+
 -- 이벤트 등록 테이블.
 create table tbl_event (
   title varchar2(100) not null,
