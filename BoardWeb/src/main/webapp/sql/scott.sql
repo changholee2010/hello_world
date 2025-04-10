@@ -1,6 +1,24 @@
 select *
 from tab;
 
+-- 이벤트 등록 테이블.
+create table tbl_event (
+  title varchar2(100) not null,
+  start_date varchar2(20) not null,
+  end_date   varchar2(20)
+);
+
+select *
+from tbl_event;
+
+insert into tbl_event 
+values ('회의1', '2025-04-12', '2025-04-15');
+insert into tbl_event 
+values ('회의2', '2025-04-18', '2025-04-20');
+insert into tbl_event 
+values ('회의3', '2025-04-22', '2025-04-25');
+
+drop table tbl_reply purge;
 create table tbl_reply (
   reply_no number,
   reply    varchar2(300) not null,
@@ -10,10 +28,22 @@ create table tbl_reply (
 
 alter table tbl_reply add constraint reply_pk primary key(reply_no);
 
+insert into tbl_reply (reply_no, reply, replyer, board_no)
+select reply_seq.nextval, reply, replyer, board_no
+from tbl_reply
+where board_no = 152;
+
+-- 페이지당 5건씩 댓글출력.
+select b.*
+from  (select /*+ INDEX_DESC(r reply_pk) */ rownum rn, r.*
+       from tbl_reply r
+       where board_no = :bno) b
+where b.rn > (:page - 1) * 5
+and   b.rn <= :page * 5;
+
 select *
 from tbl_board
 order by 1 desc;
-
 
 insert into tbl_reply (reply_no, reply, replyer, board_no)
 values(reply_seq.nextval, '152번글에 댓글', 'user01', 152);
@@ -24,19 +54,18 @@ values(reply_seq.nextval, '152번글에 댓글 두번째', 'user02', 152);
 insert into tbl_reply (reply_no, reply, replyer, board_no)
 values(reply_seq.nextval, '152번글에 댓글 세번째', 'user03', 152);
 
-
 insert into tbl_reply (reply_no, reply, replyer, board_no)
-values(reply_seq.nextval, '152번글에 댓글 세번째', 'user03', 152);
-insert into tbl_reply (reply_no, reply, replyer, board_no)
-values(reply_seq.nextval, '152번글에 댓글 세번째', 'user03', 152);
-insert into tbl_reply (reply_no, reply, replyer, board_no)
-values(reply_seq.nextval, '152번글에 댓글 세번째', 'user03', 152);
-
-select *
+select reply_seq.nextval, reply, replyer, 203
 from tbl_reply
 where board_no = 152;
 
+select *
+from tbl_reply
+where board_no = 152
+order by 1 desc;
 
+delete from tbl_reply
+where reply_no > 200;
 
 --실행페이지, 아이피, 로그시간
 create sequence log_seq;
@@ -50,9 +79,15 @@ create table tbl_log (
 insert into tbl_log
 values(log_seq.nextval, '/board.do', '192.168.0.40', sysdate);
 
-select log_sec, exec_page, exec_ip, to_char(exec_time, 'rrrr-mm-dd hh24:mi:ss') time_d
+select log_sec, exec_page, exec_ip, to_char(exec_time, 'rrrr-mm-dd hh24:mi:ss') xtime
 from tbl_log
+where exec_time > trunc(sysdate)
 order by 1 desc;
+
+select exec_page, count(1)
+from tbl_log
+where exec_time > trunc(sysdate)
+group by exec_page;
 
 update tbl_member
 set responsibility = 'User';
@@ -61,7 +96,10 @@ values('admin', '9999', '관리자',  'Admin');
 
 update tbl_member
 set images='lch.jpg'
-where member_id='user10';
+where member_id='user01';
+
+select *
+from tbl_member;
 
 alter table tbl_member add responsibility varchar2(30);
 alter table tbl_member add images varchar2(50);

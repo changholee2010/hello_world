@@ -21,6 +21,7 @@ public class LogFilter implements Filter {
 			throws IOException, ServletException {
 
 		String host = request.getRemoteAddr() + " - " + request.getRemoteHost() + " - " + request.getRemotePort();
+
 		HttpServletRequest req = (HttpServletRequest) request;
 
 		LogVO info = new LogVO();
@@ -31,11 +32,11 @@ public class LogFilter implements Filter {
 		String page = uri.substring(context.length());
 		info.setExecPage(page);
 
-		chain.doFilter(req, response);
-
 		MemberService svc = new MemberServiceImpl();
-		svc.logWrite(info);
-
-	}
+		if (!request.getRemoteAddr().startsWith("0:0:0:0:0:0:0:1")) {
+			svc.logWrite(info);
+		}
+		chain.doFilter(req, response);
+	} // end of doFilter.
 
 }
