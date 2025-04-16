@@ -3,6 +3,10 @@ package com.yedam;
 public class HelloExe {
 	// 기능(함수) => main 메소드.
 	public static void main(String[] args) {
+		
+		// product 변경.
+		// 변경작업.
+		
 		// 1. 32000 변수선언과 할당.
 		
 		// 2. 34, 32, 88, 23
