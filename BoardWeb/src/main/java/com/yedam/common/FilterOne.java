@@ -27,8 +27,6 @@ public class FilterOne implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		System.out.println("서블릿 실행전.");
 
 		// 요청페이지, 클라이언트 ip
 		String ip = request.getRemoteAddr();
@@ -52,7 +50,7 @@ public class FilterOne implements Filter {
 			svc.logCreate(map);
 		}
 		chain.doFilter(request, response);
-		System.out.println("서블릿 실행후.");
+
 	}
 
 }

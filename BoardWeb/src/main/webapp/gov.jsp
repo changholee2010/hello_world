@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  
   시도선택:<select id="choice" class="form-control">
   </select>
 
@@ -25,6 +26,8 @@
     </thead>
     <tbody id="centerList"></tbody>
   </table>
+  
+  <ul id="list"></ul>
 
   <script>
     let url =
@@ -84,6 +87,7 @@
       tr.addEventListener('click', function (e) {
         openWindow(center);
       });
+
       let fields = ['id', 'centerName', 'phoneNumber', 'sido'];
       // td생성.
       fields.forEach(field => {
@@ -99,6 +103,7 @@
       window.open('map.jsp?lat=' + center.lat + '&lng=' + center.lng);
     }
   </script>
+  <script src="js/array2.js"></script>
 </body>
 
 </html>
