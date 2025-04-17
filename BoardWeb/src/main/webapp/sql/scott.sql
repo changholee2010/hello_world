@@ -1,6 +1,11 @@
 select *
 from tab;
 
+select *
+from product_tbl;
+update product_tbl
+set prd_name = prd_name||'-1';
+
 create table tbl_logging (
   log_id number primary key,
   req_path varchar2(50) not null,
